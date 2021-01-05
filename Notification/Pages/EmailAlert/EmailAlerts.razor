@@ -1,0 +1,42 @@
+﻿@page "/emailalerts"
+@inherits EmailAlertsBase
+@using Notification.Models
+
+<div class="content-wrapper">
+    <div class="col-sm-12">
+        <RadzenCard Style="padding: 0.0rem 0.0rem 0.4rem 0.0rem">
+            <MatButton Style="width:16rem;" OnClick="CrtEmailAlert" Raised="true">Add Email Notification</MatButton>
+        </RadzenCard>
+        <RadzenGrid AllowPaging="true" AllowSorting="true" Data="@EmailAlertVMs" TItem="EmailAlertVM">
+            <Columns>
+                <RadzenGridColumn TItem="EmailAlertVM" Context="data" Property="Email" Title="Email" Type="string" Width="15%">
+                    <Template>
+                        @data.Email
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="EmailAlertVM" Context="data" Property="Subject" Title="Subject" Type="string" Width="12%">
+                    <Template>
+                        @data.Subject
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="EmailAlertVM" Context="data" Property="Message" Title="Message" Type="string">
+                    <Template>
+                        @data.Message
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="EmailAlertVM" Context="data" Property="Description" Title="Receiver's Name" Type="string" Width="10%">
+                    <Template>
+                        @data.ReceiverName
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="EmailAlertVM" Context="emailAlert" Title="Actions" Bubble="false" Filterable="true" Sortable="true" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="emailAlert">
+                        <RadzenLink @onclick="@(()=>EditEmailAlert(emailAlert.Id))" class="fas fa-pencil-alt mr-3" />
+                        <RadzenLabel @onclick="@(() => DeleteEmailAlert(emailAlert.Id))" class="fas fa-trash text-danger" Size="ButtonSize.Small" Style="cursor: pointer" />
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    </div>
+</div>
+

@@ -1,0 +1,41 @@
+﻿@page "/smsalerts"
+@inherits SMSAlertsBase
+@using Notification.Models
+
+<div class="content-wrapper">
+    <div class="col-sm-12">
+        <RadzenCard Style="padding: 0.0rem 0.0rem 0.4rem 0.0rem">
+            <MatButton Style="width:16rem;" OnClick="AddSMSAlert" Raised="true">Add SMS Notification</MatButton>
+        </RadzenCard>
+        <RadzenGrid AllowPaging="true" AllowSorting="true" Data="@SMSAlertVMs" TItem="SMSAlertVM">
+            <Columns>
+                <RadzenGridColumn TItem="SMSAlertVM" Context="data" Property="MobileNo" Title="Mobile No." Type="string" Width="20%">
+                    <Template>
+                        @data.MobileNo
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="SMSAlertVM" Context="data" Property="Subject" Title="Subject" Type="string" Width="20%">
+                    <Template>
+                        @data.Subject
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="SMSAlertVM" Context="data" Property="Message" Title="Message" Type="string">
+                    <Template>
+                        @data.Message
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="SMSAlertVM" Context="data" Property="ReceiverName" Title="Receiver's Name" Type="string" Width="10%">
+                    <Template>
+                        @data.ReceiverName
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="SMSAlertVM" Context="emailAlert" Title="Actions" Bubble="false" Filterable="true" Sortable="true" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="emailAlert">
+                        <RadzenLink @onclick="@(()=>EditSMSAlert(emailAlert.Id))" class="fas fa-pencil-alt mr-3" />
+                        <RadzenLabel @onclick="@(() => DeleteSMSAlert(emailAlert.Id))" class="fas fa-trash text-danger" Size="ButtonSize.Small" />
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    </div>
+</div>

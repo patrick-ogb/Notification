@@ -1,0 +1,38 @@
+﻿@page "/notificationtypes"
+@inherits NotificationTypesBase
+@using Notification.Models
+
+    @if (notificationTypevm == null)
+    {
+        <p style="margin-left:50%">
+            <MatProgressCircle Indeterminate="true" FourColored="true" Size="MatProgressCircleSize.Large" />
+        </p>
+    }else{
+    <div class="content-wrapper">
+    <div class="col-sm-12">
+        <RadzenCard Style="padding: 0.0rem 0.0rem 0.4rem 0.0rem">
+            <MatButton Style="width:16rem;" OnClick="CrtNotificationType" Raised="true">Add notification Type</MatButton>
+        </RadzenCard>
+        <RadzenGrid AllowPaging="true" AllowSorting="true" Data="@notificationTypevm" TItem="NotificationTypeVM">
+            <Columns>
+                <RadzenGridColumn TItem="NotificationTypeVM" Context="data" Property="Name" Title="Name" Type="string" Width="25%">
+                    <Template>
+                        @data.Name
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="NotificationTypeVM" Context="data" Property="Description" Title="Description" Type="string">
+                    <Template>
+                        @data.Description
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="NotificationTypeVM" Context="notificationtype" Title="Actions" Bubble="false" Filterable="true" Sortable="true" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="notificationtype">
+                        <RadzenLink @onclick="@(()=>EditNotificationType(notificationtype.Id))" class="fas fa-pencil-alt mr-3" />
+                        <RadzenLabel @onclick="@(() => DeleteNotificationType(notificationtype.Id))" class="fas fa-trash text-danger" Size="ButtonSize.Small" Style="cursor: pointer" />
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    </div>
+  </div>
+ }

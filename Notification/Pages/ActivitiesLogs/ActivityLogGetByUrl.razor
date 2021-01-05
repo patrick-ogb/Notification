@@ -1,0 +1,65 @@
+﻿@page "/activityloggetbyurl"
+@inherits ActivityLogGetByUrlBase
+@using Notification.Models
+
+<div class="col-sm-12">
+    <EditForm Model="activityLogGetByUrlVM" OnValidSubmit="SearchActivityLogByUrl">
+        <DataAnnotationsValidator />
+        <RadzenCard Style="padding: 0.0rem 0.3rem 0.2rem 0.0rem">
+            <div class="row">
+                <div class="col-sm-3 mt-3 text-right">
+                    Search by Url
+                </div>
+                <div class="col-sm-6">
+                    <MatTextField Label="enter url" @bind-Value="activityLogGetByUrlVM.Url" Style="width:548px; height:45px" />
+                    <ValidationMessage For="@(() => activityLogGetByUrlVM.Url)" />
+                </div>
+                <div class="col-sm-1 mt-2">
+                    <MatButton Type="submit" Raised="true">Search</MatButton>
+                </div>
+            </div>
+        </RadzenCard>
+    </EditForm>
+</div>
+
+@if (IsTrue)
+{
+    <div class="col-sm-12">
+        <RadzenGrid AllowPaging="true" AllowSorting="true" Data="@activityLogVMs" TItem="ActivityLogVM">
+            <Columns>
+                <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="ApplicationName" Title="Application Name" Type="string">
+                    <Template>
+                        @data.ApplicationName
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="UserName" Title="User Name" Type="string">
+                    <Template>
+                        @data.UserName
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="Data" Title="Data" Type="string">
+                    <Template>
+                        @data.Data
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="ActivityTyp_Request_Response" Title="Activity Type" Type="string">
+                    <Template>
+                        @data.ActivityTyp_Request_Response
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="IPAddress" Title="IPAddress" Type="string">
+                    <Template>
+                        @data.IPAddress
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogVM" Context="activityLogUrl" Title="Actions" Bubble="false" Filterable="true" Sortable="true" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="activityLogUrl">
+                        <RadzenLink @onclick="@(()=>EditActivityLog($"{activityLogUrl.Id}_ActivityLogUrl"))" class="fas fa-pencil-alt mr-3" />
+                        <RadzenLabel @onclick="@(() => DeleteActivityLog(activityLogUrl.Id))" class="fas fa-trash text-danger" Size="ButtonSize.Small;" Style="cursor: pointer" />
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    </div>
+}
+

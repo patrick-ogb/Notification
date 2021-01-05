@@ -1,0 +1,31 @@
+﻿@page "/notificationchannel"
+@using Notification.Models
+@inherits NotificationChannelsBase
+
+<div class="content-wrapper">
+    <div class="col-sm-12">
+        <RadzenCard Style="padding: 0.0rem 0.0rem 0.4rem 0.0rem">
+            <MatButton Style="width:18rem;" OnClick="CrtNotificationChannel" Raised="true">Add notification Channel</MatButton>
+        </RadzenCard>
+        <RadzenGrid AllowPaging="true" AllowSorting="true" Data="@notificationChannelVM" TItem="NotificationChannelVM">
+            <Columns>
+                <RadzenGridColumn TItem="NotificationChannelVM" Context="data" Property="Name" Title="Name" Type="string" Width="25%">
+                    <Template>
+                        @data.Name
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="NotificationChannelVM" Context="data" Property="Description" Title="Description" Type="string">
+                    <Template>
+                        @data.Description
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="NotificationChannelVM" Context="notificationchannel" Title="Actions" Bubble="false" Filterable="true" Sortable="true" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="notificationchannel">
+                        <RadzenLink @onclick="@(()=>EditNotificationChannel(notificationchannel.Id))" class="fas fa-pencil-alt mr-3" />
+                        <RadzenLabel @onclick="@(() => DeleteNotificationChannel(notificationchannel.Id))" class="fas fa-trash text-danger" Size="ButtonSize.Small" Style="cursor: pointer" />
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    </div>
+</div>

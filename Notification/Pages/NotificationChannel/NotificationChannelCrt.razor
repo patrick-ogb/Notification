@@ -1,0 +1,46 @@
+﻿@page "/createnotificationchannel/{Id}"
+@using Notification.Models
+@inherits NotificationChannelCrtBase
+
+
+<div class="col-sm-12">
+
+    <EditForm Model="NotificationChannelCrtVM" OnValidSubmit="CrtOrUptNotificationChannel">
+        <DataAnnotationsValidator />
+        <RadzenCard Style="padding: 0.0rem 0.3rem 0.2rem 0.0rem">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    Name
+                </div>
+                <div class="col-sm-10">
+                    <MatTextField Label="Full name" 
+                                  @bind-Value="NotificationChannelCrtVM.Name" 
+                                  Style="width:100%;  height:45px" />
+                    <ValidationMessage For="@(() => NotificationChannelCrtVM.Name)" />
+                </div>
+            </div>
+        </RadzenCard>
+        <RadzenCard Style="padding: 0.0rem 0.3rem 0.3rem 0.0rem">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    Description
+                </div>
+                <div class="col-sm-10">
+                    <MatTextField @bind-Value="NotificationChannelCrtVM.Description"
+                                  Label="description" TextArea="true" FullWidth="true" />
+                    <ValidationMessage For="@(() => NotificationChannelCrtVM.Description)" />
+                </div>
+            </div>
+        </RadzenCard>
+        <RadzenCard Style="padding: 0.0rem 0.0rem 0.8rem 0.0rem">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <MatButton Type="submit" Raised="true">Submit</MatButton>
+                    <RadzenButton style="margin: 0 1rem 1rem 0" Click=@(args => Cancel()) Text="Cancel" ButtonStyle="ButtonStyle.Danger" />
+                </div>
+            </div>
+        </RadzenCard>
+    </EditForm>
+
+</div>

@@ -1,0 +1,50 @@
+﻿@page "/activitlogs"
+@inherits ActivityLogsBase
+@using Notification.Models
+
+
+<div class="col-sm-12">
+    <RadzenGrid AllowPaging="true" AllowSorting="true" Data="@activityLogVMs" TItem="ActivityLogVM">
+        <Columns>
+            <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="ApplicationName" Title="Application Name" Type="string">
+                <Template>
+                    @data.ApplicationName
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="UserName" Title="User Name" Type="string">
+                <Template>
+                    @data.UserName
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="Data" Title="Data" Type="string">
+                <Template>
+                    @data.Data
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="ActivityTyp_Request_Response" Title="Activity Type" Type="string">
+                <Template>
+                    @data.ActivityTyp_Request_Response
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="IPAddress" Title="IPAddress" Type="string">
+                <Template>
+                    @data.IPAddress
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ActivityLogVM" Context="data" Property="Url" Title="Url" Type="string">
+                <Template>
+                    @data.Url
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="ActivityLogVM" Context="activityLog" Title="Actions" Bubble="false" Filterable="true" Sortable="true" TextAlign="TextAlign.Center" Width="100px">
+                <Template Context="activityLog">
+                    <RadzenLink @onclick="@(()=>EditActivityLog(activityLog.Id))" class="fas fa-pencil-alt mr-3" />
+                    <RadzenLabel @onclick="@(() => DeleteActivityLog(activityLog.Id))" class="fas fa-trash text-danger" Size="ButtonSize.Small;" Style="cursor: pointer" />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+</div>
+
+
+

@@ -1,0 +1,77 @@
+﻿@page "/activitylogdaterange"
+@inherits ActivityLogDateRangeBase
+@using Notification.Models
+
+
+<div class="col-sm-12">
+    <EditForm Model="activityLogDateRangeVM" OnValidSubmit="AddActivityLog">
+        <DataAnnotationsValidator />
+        <RadzenCard Style="padding: 0.0rem 0.3rem 0.2rem 0.0rem">
+            <div class="row">
+                <div class="col-sm-2 mt-3 text-right">
+                    START DATE
+                </div>
+                <div class="col-sm-3">
+                    <MatDatePicker @bind-Value="@activityLogDateRangeVM.StartDate" Label="start date" />
+                    <ValidationMessage For="@(() => activityLogDateRangeVM.StartDate)" />
+                </div>
+                <div class="col-sm-2 mt-3 text-right">
+                    END DATE
+                </div>
+                <div class="col-sm-3">
+                    <MatDatePicker @bind-Value="@activityLogDateRangeVM.EndDate" Label="end date" />
+                    <ValidationMessage For="@(() => activityLogDateRangeVM.EndDate)" />
+                </div>
+                <div class="col-sm-1 mt-3">
+                    <MatButton Type="submit" Raised="true">Search</MatButton>
+                </div>
+            </div>
+        </RadzenCard>
+    </EditForm>
+</div>
+
+@if (IsTrue)
+{
+    <div class="col-sm-12">
+        <RadzenGrid AllowPaging="true" AllowSorting="true" Data="@activityLogDateRangeVMs" TItem="ActivityLogDateRangeVM">
+            <Columns>
+                <RadzenGridColumn TItem="ActivityLogDateRangeVM" Context="data" Property="ApplicationName" Title="Application Name" Type="string">
+                    <Template>
+                        @data.ApplicationName
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogDateRangeVM" Context="data" Property="UserName" Title="User Name" Type="string">
+                    <Template>
+                        @data.UserName
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogDateRangeVM" Context="data" Property="Data" Title="Data" Type="string">
+                    <Template>
+                        @data.Data
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogDateRangeVM" Context="data" Property="ActivityTyp_Request_Response" Title="Activity Type" Type="string">
+                    <Template>
+                        @data.ActivityTyp_Request_Response
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogDateRangeVM" Context="data" Property="IPAddress" Title="IPAddress" Type="string">
+                    <Template>
+                        @data.IPAddress
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogDateRangeVM" Context="data" Property="Url" Title="Url" Type="string">
+                    <Template>
+                        @data.Url
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="ActivityLogDateRangeVM" Context="activityLog" Title="Actions" Bubble="false" Filterable="true" Sortable="true" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="activityLog">
+                        <RadzenLink @onclick="@(()=>EditActivityLog($"{activityLog.Id}_ActivityLogDateRange"))" class="fas fa-pencil-alt mr-3" />
+                        <RadzenLabel @onclick="@(() => DeleteActivityLog(activityLog.Id))" class="fas fa-trash text-danger" Size="ButtonSize.Small;" Style="cursor: pointer" />
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    </div>
+}

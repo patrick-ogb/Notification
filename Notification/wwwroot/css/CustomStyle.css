@@ -1,0 +1,31 @@
+﻿.sidebar-link, a.sidebar-link {
+    display: block;
+    padding: .625rem 1.625rem;
+    font-weight: 400;
+    transition: background .1s ease-in-out;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    color: wheat;
+    background: #222e3c;
+    border-left: 3px solid transparent;
+}
+.align-middle {
+    vertical-align: middle !important;
+    color: wheat;
+}
+.textLebel {
+    font:bold;
+}
+.ui-dialog {
+    margin-left: -640px;
+}
+.ui-dialog-title {
+    color: red;
+}
+.ui-dialog-content{
+    background-color: #c4dfdf;
+}
+
+
+
